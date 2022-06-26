@@ -1,0 +1,25 @@
+# Use postgres/test bob/admin credentials
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: bash -c 'uvicorn main:app --reload --host 0.0.0.0 --port 8000'
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    # depends_on:
+    #   - db_1
+    # networks:
+    #   - backend_1
+    restart: on-failure:10
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: selenium
+    ports:
+      - 4444:4444
+  
+
+  
